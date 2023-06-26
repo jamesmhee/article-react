@@ -19,6 +19,9 @@ export default {
       'xl': '1400',
       'xxl': '1600'
     },
+    boxShadow: {
+      '0':'0px 0px 10px'
+    },
   },
   plugins: [],
 }

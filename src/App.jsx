@@ -11,12 +11,14 @@ function App() {
   return (
     <>
       <BrowserRouter>
+      <div className="scroll-smooth">
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="article" element={<Article />} />
           <Route exact path="*" element={<Error404 />} />
         </Routes>
+      </div>
       </BrowserRouter>
     </>
   )
