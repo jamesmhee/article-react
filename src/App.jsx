@@ -36,7 +36,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<Home title={title} loading={loading}/>} />
-          <Route exact path="article/:id" element={<Article />} />
+          <Route exact path="article/:id" element={<Article loading={loading}/>} />
           <Route exact path="edit/:id" element={<EditArticle fetchTitle={fetchTitle}/>} />
           <Route exact path="user" element={<Users fetchTitle={fetchTitle} title={title} loading={loading}/>} />
           <Route exact path="*" element={<Error404 />} />
