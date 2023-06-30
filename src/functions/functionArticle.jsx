@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = 'https://article-nodejs-api.onrender.com/api/article'
+const url = 'https://article-nodejs-api.onrender.com/api'
 
 export const getData = async () => {
     return await axios.get(url + '/article')
