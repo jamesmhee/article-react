@@ -26,7 +26,9 @@ const Home = ({title, loading}) => {
                 </Link>
                 <hr></hr>
                 <p className='mt-3 mb-5 text-md truncate'>{e.body}</p>
-                <p className='mt-3 text-sm'><HeartIcon className="inline-flex h-6 w-6 text-red-600 mt-auto" /> {e.like}</p>
+                <button>          
+                  <p className='text-sm'><HeartIcon className="inline-flex h-6 w-6 text-red-600 mt-auto" /> {e.like}</p>
+                </button>
           </div>
           )
         }))
