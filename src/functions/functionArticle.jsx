@@ -1,8 +1,23 @@
 import axios from "axios";
+import { appCheck, getToken } from "../firebase";
 const url = 'https://article-nodejs-api.onrender.com/api'
 
+const generateToken = async () => {
+    try {
+        const Token = await getToken(appCheck)
+        return Token
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const getData = async () => {
-    return await axios.get(url + '/article')
+    const token = await generateToken()
+    return await axios.get(url + '/article', {
+        headers:{
+            'X-Firebase-AppCheck': token.token
+        }
+    })
 }
 
 export const readData = async (id) => {

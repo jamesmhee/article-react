@@ -13,11 +13,11 @@ const Home = ({title, loading}) => {
         <div className="bg-gray-500 rounded text-white w-11/12 xs:w-7/12 h-auto p-3 mb-5 text-center shadow-0 shadow-slate-500">
         <Typewriter
               onInit={(typewriter) => {
-                typewriter.typeString("สวัสดีครับเว็บนี้สร้างขึ้นเพื่อฝึกฝนในการพัฒนาเว็บไซต์ด้วย React , Node.js , MySQL , Tailwind CSS").pauseFor(1000).start();
+                typewriter.typeString("สวัสดีครับเว็บนี้สร้างขึ้นเพื่อฝึกฝนในการพัฒนาเว็บไซต์ด้วย React , Node.js , MongoDB , Tailwind CSS").pauseFor(1000).start();
               }}
             />
         </div>
-        {loading ? 
+        {(loading || title) ? 
         ( title.map((e, index)=>{
             return(
               <div  key={index} className="bg-slate-700 odd:bg-orange-400 odd:text-slate-900 rounded text-white w-11/12 xs:w-7/12 h-auto p-5 mb-5 text-left shadow-0 shadow-slate-500 ">

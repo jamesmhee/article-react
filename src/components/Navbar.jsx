@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { auth } from "../firebase";
 import { Link, useLinkClickHandler, useNavigate } from "react-router-dom";
 import logo from "../assets/alt-console-1-svgrepo-com.svg";
 import Typewriter from "typewriter-effect";
@@ -7,16 +8,35 @@ import withReactContent from "sweetalert2-react-content";
 import Login from "../pages/Login";
 import "animate.css";
 import { Bars3Icon , XMarkIcon } from "@heroicons/react/24/solid";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 
-const Navbar = (props) => {
+const Navbar = () => {
   const MySwal = withReactContent(Swal);
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const [user, setUser] = useState([""]);
+  const [authUser, setAuthUser] = useState(null);
   const isNavigate = useNavigate();
-  const goHome = () => {
-    setIsLoggedIn(false);
-    isNavigate("/");
+
+  useEffect(()=> {
+    const listen = onAuthStateChanged(auth, (user) => {
+      if (user){
+        setAuthUser(user)
+      } else {
+        setAuthUser(null)
+      }
+    })
+    return ()=> {
+      listen()
+    }
+  }, [])
+
+  const userSignOut = () => {
+    signOut(auth)
+    .then(()=>{
+      isNavigate("/");
+      console.log("User signed out")
+    }).catch((error)=>{
+      console.log(error)
+    })
   };
 
   // toggle navbar
@@ -26,7 +46,7 @@ const Navbar = (props) => {
 
   const showLoginBox = () => {
     MySwal.fire({
-      title: "LOGIN",
+      title: "Sign In",
       html: <Login />,
       backdrop: true,
       showConfirmButton: false,
@@ -68,24 +88,26 @@ const Navbar = (props) => {
                     Home
                   </li>
                 </Link>
-                <Link to="article">
-                  <li className="p-2 cursor-pointer hover:text-orange-500">
-                    Article
-                  </li>
-                </Link>
-                {isLoggedIn ? (
-                  <button
-                    onClick={goHome}
-                    className="bg-orange-500 w-20 border-box rounded cursor-pointer hover:text-slate-800"
-                  >
-                    LOGOUT
-                  </button>
+                {authUser ? (
+                  <>
+                    <Link to="user">
+                      <li className="p-2 cursor-pointer hover:text-orange-500">
+                        Article
+                      </li>
+                    </Link>
+                    <button
+                      onClick={userSignOut}
+                      className="bg-orange-500 w-20 border-box rounded cursor-pointer hover:text-slate-800"
+                    >
+                      Sign Out
+                    </button>
+                  </>
                 ) : (
                   <button
                     onClick={showLoginBox}
                     className="bg-orange-500 w-20 border-box rounded cursor-pointer hover:text-slate-800"
                   >
-                    LOGIN
+                    Sign In
                   </button>
                 )}
               </ul>
