@@ -4,6 +4,7 @@ const morgan = require('morgan')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const ConnectDB = require('./config/db')
+const PORT = process.env.PORT || 4000;
 
 const app = express()
 
@@ -16,6 +17,6 @@ readdirSync('./routes').map((e) => {
     app.use('/api', require('./routes/' + e))
 })
 
-app.listen(5000, ()=>{
+app.listen(PORT, ()=>{
     console.log('Server is Running')
 })

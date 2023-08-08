@@ -9,6 +9,18 @@ const articleSchema = mongoose.Schema({
         type: String,
         default: ''
     },
+    comments: [
+        {
+            user : {
+                type: String,
+                default: 'Anonymous'
+            },
+            comment : {
+                type: String,
+                default: ''
+            },
+        }
+    ],
     like: {
         type: Number,
         default: 0
