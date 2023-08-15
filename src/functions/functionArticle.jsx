@@ -13,11 +13,7 @@ const generateToken = async () => {
 
 export const getData = async () => {
     const token = await generateToken()
-    return await axios.get(url + '/article', {
-        headers:{
-            'X-Firebase-AppCheck': token.token
-        }
-    })
+    return await axios.get(url + '/article')
 }
 
 export const readData = async (id) => {
